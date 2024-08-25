@@ -21,7 +21,6 @@
     scope: global
     value: "{{ git.email_b64 | b64decode }}"
 
-git config --global init.defaultBranch <name>
 - name: Git config init.defaultBranch
   community.general.git_config:
     name: init.defaultBranch
