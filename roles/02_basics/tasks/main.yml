@@ -77,11 +77,13 @@
       failed_when: false
       check_mode: false
       register: config_exists_status
+      become: true
 
     - name: initialize configuration 'root'
       ansible.builtin.command: "snapper --config root create-config /"
       changed_when: true
       when: config_exists_status.rc == 1
+      become: true
 
     - name: Update snapper config
       ansible.builtin.template:
@@ -98,3 +100,11 @@
         name: snap-pac
         state: present
       become: true
+
+- name: Disable debug package for makepkg
+  replace:
+    path: /etc/makepkg.conf
+    regexp: '^(OPTIONS=.*)\bdebug\b'
+    replace: '\1!debug'
+  become: true
+

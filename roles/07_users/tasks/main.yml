@@ -87,11 +87,9 @@
       ansible.builtin.git:
         repo: https://github.com/danielepintore/dotfiles.git
         dest: "/home/{{ user.name }}/.cfg/"
-        separate_git_dir: "/home/{{ user.name }}/"
         bare: true
     - name: Update .gitignore
       ansible.builtin.lineinfile:
+        create: true
         dest: "/home/{{ user.name }}/.gitignore"
         line: ".cfg"
-        owner: "{{ user.name }}"
-        group: "{{ user.primary_group }}"

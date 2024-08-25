@@ -1,18 +1,17 @@
 ---
-- name: Install Xorg
+- name: Install XWayland
   community.general.pacman:
     name:
       - xorg-xwayland
     state: present
   become: true
 
-- name: Detect GPU
-  # ansible.builtin.shell: set -o pipefail && lspci -v | grep -A1 -e VGA -e 3D  # noqa command-instead-of-shell
-  ansible.builtin.shell: set -o pipefail && lspci | grep -i 'VGA\|3D\|display'  # noqa command-instead-of-shell
-  register: gpu_result
-  changed_when: no
+- name: Print return information from the previous task
+  ansible.builtin.debug:
+    var: gpu_drivers
 
 - name: Install GPU drivers (AMD)
+  when: gpu_drivers == "amd"
   community.general.pacman:
     name:
       - mesa
@@ -33,9 +32,9 @@
       - rocm-opencl-sdk
     state: present
   become: true
-  when: ("'radeon' in gpu_result.stdout.lower()") or ("'amd/ati' in gpu_result.stdout.lower()")
 
 - name: Install GPU drivers (Intel)
+  when: gpu_drivers == "intel"
   community.general.pacman:
     name:
       - mesa
@@ -52,15 +51,15 @@
       - opencl-clover-mesa
     state: present
   become: true
-  when: "'intel' in gpu_result.stdout.lower()"
 
 - name: Install GPU drivers (Nvidia)
+  when: gpu_drivers == "nvidia"
   community.general.pacman:
     name:
       - mesa
       - mesa-utils
       # https://wiki.archlinux.org/title/Xorg
-      - nvidia
+      - nvidia-dkms
       # https://wiki.archlinux.org/title/Hardware_video_acceleration
       - nvidia-utils
       - lib32-nvidia-utils # for wine/steam
@@ -69,4 +68,3 @@
       - opencl-nvidia
     state: present
   become: true
-  when: "'nvidia' in gpu_result.stdout.lower()"

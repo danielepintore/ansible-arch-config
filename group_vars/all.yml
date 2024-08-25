@@ -28,6 +28,9 @@ git:
 # Miscellaneous
 #
 
+# amd, intel, nvidia
+gpu_drivers: nvidia
+
 # desktop environment to install
 # "Hyprland"
 desktop: hyprland
@@ -156,7 +159,7 @@ packages:
   - neofetch
   - neovim
   - networkmanager
-  - networkmanager-applet
+  - network-manager-applet
   - nm-connection-editor
   - nmap
   - npm
@@ -230,11 +233,11 @@ aur_packages:
   - rofi-lbonn-wayland-git
   - teams-for-linux
   - termius
-  - tlpui
 
 laptop_aur_packages:
   - batsignal
   - pam-fprint-grosshack
+  - tlpui
 
 flatpaks:
   - com.github.tchx84.Flatseal
