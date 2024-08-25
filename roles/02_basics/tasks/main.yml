@@ -1,0 +1,100 @@
+---
+- name: Upgrade system
+  community.general.pacman:
+    update_cache: yes
+    upgrade: yes
+  become: true
+
+- name: Start systemd service - systemd-timesyncd
+  ansible.builtin.systemd:
+    name: systemd-timesyncd
+    state: started
+    enabled: yes
+  become: true
+
+- name: Install packages
+  community.general.pacman:
+    name:
+      - reflector
+      - pacman-contrib
+      - xdg-desktop-portal
+      - xdg-user-dirs
+    state: present
+  become: true
+
+- name: Start systemd service - paccache.timer
+  ansible.builtin.systemd:
+    name: paccache.timer
+    state: started
+    enabled: yes
+  become: true
+
+- name: Start systemd service - xdg-user-dirs-update.service
+  ansible.builtin.systemd:
+    name: xdg-user-dirs-update.service
+    state: started
+    enabled: yes
+    scope: user
+
+- name: Update reflector configuration file
+  ansible.builtin.template:
+    src: reflector.conf.j2
+    dest: /etc/xdg/reflector/reflector.conf
+    backup: no
+    owner: root
+    group: root
+    mode: 0644
+  become: true
+
+- name: Start systemd service - reflector.service
+  ansible.builtin.systemd:
+    name: reflector.service
+    state: started
+    enabled: yes
+  become: true
+
+- name: Update pacman configuration file
+  ansible.builtin.template:
+    src: pacman.conf.j2
+    dest: /etc/pacman.conf
+    backup: no
+    owner: root
+    group: root
+    mode: 0644
+  become: true
+
+- name: Install snapper and snap-pac for btrfs snapshots
+  block:
+    - name: Install snapper
+      community.general.pacman:
+        name: snapper
+        state: present
+      become: true
+
+    - name: check if configuration 'root' exists
+      ansible.builtin.command: "snapper -c root get-config"
+      changed_when: false
+      failed_when: false
+      check_mode: false
+      register: config_exists_status
+
+    - name: initialize configuration 'root'
+      ansible.builtin.command: "snapper --config root create-config /"
+      changed_when: true
+      when: config_exists_status.rc == 1
+
+    - name: Update snapper config
+      ansible.builtin.template:
+        src: snapper.conf
+        dest: /etc/snapper/configs/root
+        backup: no
+        owner: root
+        group: root
+        mode: 0644
+      become: true
+
+    - name: Install snap-pac
+      community.general.pacman:
+        name: snap-pac
+        state: present
+      become: true

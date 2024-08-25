@@ -1,0 +1,261 @@
+---
+#
+# User configuration
+#
+user:
+  name: daniele
+  full_name: "Daniele Pintore"
+  primary_group: users
+  additional_groups: wheel
+  # /bin/bash or /bin/zsh
+  shell: /bin/zsh
+  # See country list by running `reflector --list-countries`
+  country: "Italy, Germany"
+
+git:
+  name: "{{ user['full_name'] }}"
+  # obfuscated a little so bots won't find it
+  email_b64: "ZGFuaWVsZS5waW50b3JlMUBnbWFpbC5jb20K"
+  defaultBranch: "main"
+  # can be "cache", "store", "osxkeychain", or "manager"
+  helper: "cache" # currently disabled
+  # can be "true" or "false"
+  rebase: "true" # currently disabled
+  # see this https://git-scm.com/docs/git-diff#Documentation/git-diff.txt---color-movedltmodegt
+  colorMoved: "zebra" # currently disabled
+
+#
+# Miscellaneous
+#
+
+# desktop environment to install
+# "Hyprland"
+desktop: hyprland
+
+# only AMD or Intel CPUs are currently supported
+# true or false
+install_microcode: true
+
+# whether to enable printing/scanning or not
+# true or false
+enable_printing: false # currently disabled
+
+# whether to detect the scanner or not
+# true or false
+detect_scanner: false # currently disabled
+
+# whether to enable bluetooth or not
+# true or false
+enable_bluetooth: true
+
+# whether to install laptop tools
+# true or false
+laptop: false
+
+# how many parallel downloads to run at once
+pacman:
+  parallel_downloads: 5
+
+# set aur helper
+# supported helpers are here https://github.com/kewlfft/ansible-aur#kewlfftauraur-module
+aur_helper: yay
+
+#
+# Services
+#
+
+# if not using LVM, disable it
+# true or false
+disable_lvm: false # currently disabled
+
+# if not using systemd homed, disable it
+# true or false
+disable_systemd_homed: false # currently disabled
+
+#
+# Packages
+#
+packages:
+  - aardvark-dns
+  - alsa-firmware
+  - alsa-plugins
+  - alsa-utils
+  - sof-firmware
+  - chromium
+  - curl
+  - podman
+  - podman-compose
+  - udiskie
+  - firefox
+  - filezilla
+  - flatpak
+  - fzf
+  - gdb
+  - ghc
+  - loupe
+  - grub-btrfs
+  - gnome-calculator
+  - gnome-keyring
+  - gnu-netcat
+  - go
+  - go-swagger
+  - gimp
+  - git
+  - gvfs
+  - gvfs-afc
+  - hunspell-en_us
+  - hunspell-it
+  - libgsf
+  - f3d
+  - evince
+  - android-file-transfer
+  - libva-utils
+  - gvfs-gphoto2
+  - gvfs-smb
+  - htop
+  - jadx
+  - kid3
+  - nwg-look
+  - ifuse
+  - jq
+  - linux-firmware
+  - linux-headers
+  - lsof
+  - man
+  - ropper
+  - ripgrep
+  - rclone
+  - pandoc-cli
+  - qemu-full
+  - libvirt
+  - libreoffice-fresh
+  - jdk-openjdk
+  - btrfs-progs
+  - lib32-glibc
+  - plymouth
+  - python-capstone
+  - python-pip
+  - python-psutil
+  - python-ptrace
+  - python-pycparser
+  - python-pyelftools
+  - python-pygments
+  - python-pynvim
+  - python-six
+  - python-unicorn
+  - slurp
+  - radare2
+  - qpdf
+  - pwndbg
+  - pwninit
+  - polkit-kde-agent
+  - man-db
+  - man-pages
+  - minicom
+  - ncdu
+  - neofetch
+  - neovim
+  - networkmanager
+  - networkmanager-applet
+  - nm-connection-editor
+  - nmap
+  - npm
+  - openssh
+  - obs-studio
+  - pipewire
+  - pavucontrol
+  - pamixer
+  - patchelf
+  - pipewire-pulse
+  - pipewire-alsa
+  - qbittorrent
+  - rsync
+  - sudo
+  - texlive-basic
+  - texlive-bin
+  - texlive-fontsrecommended
+  - texlive-latex
+  - texlive-latexrecommended
+  - unrar
+  - unzip
+  - vlc
+  - wget
+  - wev
+  - wireguard-tools
+  - wireplumber
+  - wireshark-qt
+  - wl-clipboard
+  - zsh
+  - zsh-syntax-highlighting
+  - xwaylandvideobridge
+  - virtualbox
+  - virt-manager
+  - veracrypt
+  - tmux
+  - thunderbird
+  - telegram-desktop
+  - steam
+  - sqlitebrowser
+  - base
+  - base-devel
+  - debuginfod
+  - discord
+  - dnsmasq
+  - dosfstools
+  - efibootmgr
+  - btrfs-progs
+  - ffmpegthumbnailer
+  - ffmpeg
+
+laptop_packages:
+  - acpilight
+  - fprintd
+
+aur_packages:
+  - android-apktool
+  - anytype-bin
+  - betaflight-configurator-bin
+  - btrfs-assistant
+  - burpsuite
+  - cura-bin
+  - dex2jar
+  - dmg2img
+  - google-chrome
+  - httpie-desktop-bin
+  - hyprpicker
+  - jdownloader2
+  - plymouth-theme-abstract-ring-alt-git
+  - plymouth-theme-colorful-sliced-git
+  - qdirstat
+  - rofi-lbonn-wayland-git
+  - teams-for-linux
+  - termius
+  - tlpui
+
+laptop_aur_packages:
+  - batsignal
+  - pam-fprint-grosshack
+
+flatpaks:
+  - com.github.tchx84.Flatseal
+  - fr.handbrake.ghb
+  - com.musixmatch.Musixmatch
+  - com.usebottles.bottles
+  - net.xm1math.Texmaker
+
+base_fonts:
+  - otf-font-awesome
+  - ttf-agave-nerd
+  - ttf-font-awesome
+
+
+printing_scanning_packages:
+  - cups
+  - cups-pdf
+  - sane
+  - sane-airscan
+  - simple-scan
+
+printing_scanning_aur_packages:
+  - brlaser-git
+  - brscan4

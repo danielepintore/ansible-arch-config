@@ -1,0 +1,36 @@
+---
+- name: Install power management packages
+  community.general.pacman:
+    name:
+      - tlp
+      - tlp-rdw
+    state: present
+  become: true
+
+- name: Start systemd service - tlp.service
+  ansible.builtin.systemd:
+    name: tlp.service
+    state: started
+    enabled: yes
+  become: true
+
+- name: Mask service - systemd-rfkill.service
+  ansible.builtin.systemd:
+    name: systemd-rfkill.service
+    masked: true
+  become: true
+
+- name: Mask socket - systemd-rfkill.socket
+  ansible.builtin.systemd:
+    name: systemd-rfkill.socket
+    masked: true
+  become: true
+
+- name: Install laptop packages
+  community.general.pacman:
+    name: "{{ laptop_packages }}"
+    state: present
+  become: true
+
+- name: Install laptop aur packages
+  ansible.builtin.import_tasks: laptop-aur.yml

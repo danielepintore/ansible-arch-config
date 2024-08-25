@@ -1,0 +1,6 @@
+---
+- name: Install laptop AUR packages
+  kwelfft.aur.aur:
+    name: "{{ laptop_aur_packages }}"
+    state: present
+    use: "{{ aur_helper }}"

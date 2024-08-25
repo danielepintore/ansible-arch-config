@@ -1,0 +1,98 @@
+---
+- name: Create user
+  ansible.builtin.user:
+    name: "{{ user.name }}"
+    comment: "{{ user.full_name }}"
+    groups: "{{ user.additional_groups }}"
+    append: yes
+    shell: "{{ user.shell }}"
+    state: present
+  become: true
+
+- name: Git config user.name
+  community.general.git_config:
+    name: user.name
+    scope: global
+    value: "{{ git.name }}"
+
+- name: Git config user.email
+  community.general.git_config:
+    name: user.email
+    scope: global
+    value: "{{ git.email_b64 | b64decode }}"
+
+git config --global init.defaultBranch <name>
+- name: Git config init.defaultBranch
+  community.general.git_config:
+    name: init.defaultBranch
+    scope: global
+    value: "{{ git.defaultBranch }}"
+#- name: Git config credential.helper
+#  community.general.git_config:
+#    name: credential.helper
+#    scope: global
+#    value: "{{ git.helper }}"
+#
+#- name: Git config pull.rebase
+#  community.general.git_config:
+#    name: pull.rebase
+#    scope: global
+#    value: "{{ git.rebase }}"
+#
+#- name: Git config diff.colorMoved
+#  community.general.git_config:
+#    name: diff.colorMoved
+#    scope: global
+#    value: "{{ git.colorMoved }}"
+#
+#- name: install oh my zsh
+#  ansible.builtin.git:
+#    repo: 'https://github.com/ohmyzsh/ohmyzsh.git'
+#    dest: "/home/{{ user.name }}/.oh-my-zsh"
+#    clone: yes
+#    update: yes
+#    version: master
+#    depth: 1
+#
+#- name: set permissions for ~/.oh-my-zsh
+#  ansible.builtin.file:
+#    path: "/home/{{ user.name }}/.oh-my-zsh"
+#    owner: "{{ user.name }}"
+#    group: "{{ user.primary_group }}"
+#    mode: 0750
+#
+#- name: install powerlevel10k theme
+#  ansible.builtin.git:
+#    repo: 'https://github.com/romkatv/powerlevel10k.git'
+#    dest: "/home/{{ user.name }}/.oh-my-zsh/custom/themes/powerlevel10k"
+#    clone: yes
+#    update: yes
+#    version: master
+#    depth: 1
+#
+#- name: Set permissions for Powerlevel10k
+#  ansible.builtin.file:
+#    path: '/home/{{ user.name }}/.oh-my-zsh/custom/themes/powerlevel10k'
+#    owner: "{{ user.name }}"
+#    group: "{{ user.primary_group }}"
+#    mode: 0750
+#
+#- name: Install VS Code extensions
+#  ansible.builtin.shell: code --install-extension {{ item }}  # noqa command-instead-of-shell
+#  with_items: "{{ vscode_extension_list }}"
+#  changed_when: no
+
+- name: Get dotfiles
+  block:
+    - name: Clone dotfiles repo
+      ansible.builtin.git:
+        repo: https://github.com/danielepintore/dotfiles.git
+        dest: "/home/{{ user.name }}/.cfg/"
+        separate_git_dir: "/home/{{ user.name }}/"
+        bare: true
+    - name: Update .gitignore
+      ansible.builtin.lineinfile:
+        dest: "/home/{{ user.name }}/.gitignore"
+        line: ".cfg"
+        owner: "{{ user.name }}"
+        group: "{{ user.primary_group }}"
