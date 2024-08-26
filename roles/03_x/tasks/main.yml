@@ -68,3 +68,28 @@
       - opencl-nvidia
     state: present
   become: true
+
+- name: Apply Nvidia tricks https://wiki.archlinux.org/title/NVIDIA/Tips_and_tricks
+  when: gpu_drivers == "nvidia" and nvidia_tricks
+  block:
+    - name: Add nvidia kernel parameter
+      ansible.builtin.lineinfile:
+        create: true
+        dest: "/etc/modprobe.d/nvidia.conf"
+        line: "options nvidia NVreg_PreserveVideoMemoryAllocations=1"
+      become: true
+    - name: Start systemd service - nvidia-suspend.service
+      ansible.builtin.systemd:
+        name: nvidia-suspend.service
+        enabled: yes
+      become: true
+    - name: Start systemd service - nvidia-resume.service
+      ansible.builtin.systemd:
+        name: nvidia-resume.service
+        enabled: yes
+      become: true
+    - name: Start systemd service - nvidia-hibernate.service
+      ansible.builtin.systemd:
+        name: nvidia-hibernate.service
+        enabled: yes
+      become: true

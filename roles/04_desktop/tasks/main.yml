@@ -23,10 +23,24 @@
           - xdg-desktop-portal-hyprland
         state: present
       become: true
+    - name: Start systemd service - sddm.service
+      ansible.builtin.systemd:
+        name: sddm.service
+        enabled: yes
+      become: true
+    - name: Configure sddm for auto login with the current user
+      block:
+        - name: Set Hyprland as default session
+          ansible.builtin.replace:
+            path: /usr/lib/sddm/sddm.conf.d/default.conf
+            regexp: '^(Session=.*)'
+            replace: 'Session=hyprland'
+          become: true
+        - name: Set autologin username
+          ansible.builtin.replace:
+            path: /usr/lib/sddm/sddm.conf.d/default.conf
+            regexp: '^(User=.*)'
+            replace: 'User={{ user.name }}'
+          become: true
 
-- name: Start systemd service - sddm.service
-  ansible.builtin.systemd:
-    name: sddm.service
-    enabled: yes
-  become: true
 

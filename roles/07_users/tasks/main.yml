@@ -9,6 +9,11 @@
     state: present
   become: true
 
+- name: Add Screenshot directory
+  ansible.builtin.file:
+    path: /home/{{ user.name }}/Pictures/Screenshots
+    state: directory
+
 - name: Git config user.name
   community.general.git_config:
     name: user.name
@@ -93,3 +98,19 @@
         create: true
         dest: "/home/{{ user.name }}/.gitignore"
         line: ".cfg"
+
+- name: Install tmux TPM
+  ansible.builtin.git:
+    repo: https://github.com/tmux-plugins/tpm
+    dest: "/home/{{ user.name }}/.config/tmux/plugins/tpm"
+
+- name: Install rofi themes
+  block:
+    - name: Download rofi themes
+      ansible.builtin.git:
+        repo: https://github.com/lr-tech/rofi-themes-collection.git
+        dest: "/tmp/rofi-themes-collection"
+    - name: Copy rofi themes
+      ansible.builtin.copy:
+        src: "/tmp/rofi-themes-collection/themes/"
+        dest: "/home/{{ user.name }}/.local/share/rofi/themes/"

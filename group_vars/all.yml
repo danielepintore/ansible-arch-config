@@ -31,6 +31,9 @@ git:
 # amd, intel, nvidia
 gpu_drivers: nvidia
 
+# if nvidia is selected apply nvidia tips and tricks from arch wiki
+nvidia_tricks: true
+
 # desktop environment to install
 # "Hyprland"
 desktop: hyprland
@@ -83,59 +86,83 @@ packages:
   - alsa-firmware
   - alsa-plugins
   - alsa-utils
-  - sof-firmware
+  - android-file-transfer
+  - base
+  - base-devel
+  - btrfs-progs
+  - btrfs-progs
   - chromium
   - curl
-  - podman
-  - podman-compose
-  - udiskie
-  - firefox
+  - debuginfod
+  - discord
+  - dnsmasq
+  - dosfstools
+  - efibootmgr
+  - evince
+  - f3d
+  - ffmpeg
+  - ffmpegthumbnailer
   - filezilla
+  - firefox
   - flatpak
   - fzf
   - gdb
   - ghc
-  - loupe
-  - grub-btrfs
+  - gimp
+  - git
   - gnome-calculator
   - gnome-keyring
   - gnu-netcat
   - go
   - go-swagger
-  - gimp
-  - git
   - gvfs
   - gvfs-afc
-  - hunspell-en_us
-  - hunspell-it
-  - libgsf
-  - f3d
-  - evince
-  - android-file-transfer
-  - libva-utils
   - gvfs-gphoto2
   - gvfs-smb
   - htop
-  - jadx
-  - kid3
-  - nwg-look
+  - hunspell-en_us
+  - hunspell-it
   - ifuse
+  - jadx
+  - jdk-openjdk
   - jq
+  - kid3
+  - lib32-glibc
+  - libgsf
+  - libreoffice-fresh
+  - libva-utils
+  - libvirt
   - linux-firmware
   - linux-headers
+  - loupe
   - lsof
   - man
-  - ropper
-  - ripgrep
-  - rclone
+  - man-db
+  - man-pages
+  - minicom
+  - ncdu
+  - neofetch
+  - neovim
+  - network-manager-applet
+  - networkmanager
+  - nm-connection-editor
+  - nmap
+  - npm
+  - nwg-look
+  - obs-studio
+  - openssh
+  - pamixer
   - pandoc-cli
-  - qemu-full
-  - libvirt
-  - libreoffice-fresh
-  - jdk-openjdk
-  - btrfs-progs
-  - lib32-glibc
-  - plymouth
+  - patchelf
+  - pavucontrol
+  - pipewire
+  - pipewire-alsa
+  - pipewire-pulse
+  - podman
+  - podman-compose
+  - polkit-kde-agent
+  - pwndbg
+  - pwninit
   - python-capstone
   - python-pip
   - python-psutil
@@ -146,69 +173,44 @@ packages:
   - python-pynvim
   - python-six
   - python-unicorn
-  - slurp
-  - radare2
-  - qpdf
-  - pwndbg
-  - pwninit
-  - polkit-kde-agent
-  - man-db
-  - man-pages
-  - minicom
-  - ncdu
-  - neofetch
-  - neovim
-  - networkmanager
-  - network-manager-applet
-  - nm-connection-editor
-  - nmap
-  - npm
-  - openssh
-  - obs-studio
-  - pipewire
-  - pavucontrol
-  - pamixer
-  - patchelf
-  - pipewire-pulse
-  - pipewire-alsa
   - qbittorrent
+  - qemu-full
+  - qpdf
+  - radare2
+  - rclone
+  - ripgrep
+  - ropper
   - rsync
+  - slurp
+  - sof-firmware
+  - sqlitebrowser
+  - steam
   - sudo
+  - swaybg
+  - telegram-desktop
   - texlive-basic
   - texlive-bin
   - texlive-fontsrecommended
   - texlive-latex
   - texlive-latexrecommended
+  - thunderbird
+  - tmux
+  - udiskie
   - unrar
   - unzip
+  - veracrypt
+  - virt-manager
+  - virtualbox
   - vlc
-  - wget
   - wev
+  - wget
   - wireguard-tools
   - wireplumber
   - wireshark-qt
   - wl-clipboard
+  - xwaylandvideobridge
   - zsh
   - zsh-syntax-highlighting
-  - xwaylandvideobridge
-  - virtualbox
-  - virt-manager
-  - veracrypt
-  - tmux
-  - thunderbird
-  - telegram-desktop
-  - steam
-  - sqlitebrowser
-  - base
-  - base-devel
-  - debuginfod
-  - discord
-  - dnsmasq
-  - dosfstools
-  - efibootmgr
-  - btrfs-progs
-  - ffmpegthumbnailer
-  - ffmpeg
 
 laptop_packages:
   - acpilight

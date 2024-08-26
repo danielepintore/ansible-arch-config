@@ -19,6 +19,8 @@
       - pacman-contrib
       - xdg-desktop-portal
       - xdg-user-dirs
+      - grub-btrfs
+      - plymouth
     state: present
   become: true
 
@@ -102,9 +104,31 @@
       become: true
 
 - name: Disable debug package for makepkg
-  replace:
+  ansible.builtin.replace:
     path: /etc/makepkg.conf
-    regexp: '^(OPTIONS=.*)\bdebug\b'
-    replace: '\1!debug'
+    regexp: '^(OPTIONS=.*)\b debug\b'
+    replace: '\1 !debug'
   become: true
 
+- name: Set zsh config dir to ~/.config
+  ansible.builtin.lineinfile:
+    create: true
+    dest: "/etc/zsh/zshenv"
+    line: "export ZDOTDIR=\"$HOME/.config/zsh/\""
+  become: true
+
+- name: Enable grub-btrfs snapshots hook
+  block:
+    - name: Enable grub-btrfs sys
+      ansible.builtin.systemd:
+        name: grub-btrfsd.service
+        state: started
+        enabled: yes
+      become: true
+    - name: grub-btrfs warning!!
+      ansible.builtin.pause:
+        prompt: |
+          "This is a reminder that you need to add the "grub-btrfs-overlayfs" hook for mkinitcpio"
+          "https://github.com/Antynea/grub-btrfs/blob/master/initramfs/readme.md"
+          "Press [ENTER] to continue"
+        echo: no
