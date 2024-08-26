@@ -150,6 +150,7 @@ packages:
   - npm
   - nwg-look
   - obs-studio
+  - openscad
   - openssh
   - pamixer
   - pandoc-cli
