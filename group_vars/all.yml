@@ -235,6 +235,7 @@ aur_packages:
   - rofi-lbonn-wayland-git
   - teams-for-linux
   - termius
+  - vdhcoapp-bin
 
 laptop_aur_packages:
   - batsignal
