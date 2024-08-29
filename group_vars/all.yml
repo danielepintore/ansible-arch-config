@@ -10,13 +10,14 @@ user:
   # /bin/bash or /bin/zsh
   shell: /bin/zsh
   # See country list by running `reflector --list-countries`
-  country: "Italy, Germany"
+  country: "Italy,Germany,France"
 
 git:
   name: "{{ user['full_name'] }}"
   # obfuscated a little so bots won't find it
   email_b64: "ZGFuaWVsZS5waW50b3JlMUBnbWFpbC5jb20K"
   defaultBranch: "main"
+  defaultEditor: "nvim"
   # can be "cache", "store", "osxkeychain", or "manager"
   helper: "cache" # currently disabled
   # can be "true" or "false"
@@ -89,6 +90,7 @@ packages:
   - android-file-transfer
   - base
   - base-devel
+  - bitwarden
   - btrfs-progs
   - btrfs-progs
   - chromium
