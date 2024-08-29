@@ -232,6 +232,7 @@ aur_packages:
   - httpie-desktop-bin
   - hyprpicker
   - jdownloader2
+  - lrcget-bin
   - plymouth-theme-abstract-ring-alt-git
   - plymouth-theme-colorful-sliced-git
   - qdirstat
