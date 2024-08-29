@@ -31,6 +31,12 @@
     name: init.defaultBranch
     scope: global
     value: "{{ git.defaultBranch }}"
+
+- name: Git config default editor
+  community.general.git_config:
+    name: core.editor
+    scope: global
+    value: "{{ git.defaultEditor }}"
 #- name: Git config credential.helper
 #  community.general.git_config:
 #    name: credential.helper
