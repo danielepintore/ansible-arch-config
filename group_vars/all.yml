@@ -129,6 +129,7 @@ packages:
   - jdk-openjdk
   - jq
   - kid3
+  - kodi
   - lib32-glibc
   - libgsf
   - libreoffice-fresh
