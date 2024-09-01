@@ -234,6 +234,7 @@ aur_packages:
   - hyprpicker
   - jdownloader2
   - lrcget-bin
+  - orca-slicer-bin
   - plymouth-theme-abstract-ring-alt-git
   - plymouth-theme-colorful-sliced-git
   - qdirstat
